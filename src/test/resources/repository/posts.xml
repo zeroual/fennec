@@ -1,0 +1,5 @@
+<dataset>
+    <post ID="1"
+          USERNAME="toto"
+          BODY="test body"/>
+</dataset>
