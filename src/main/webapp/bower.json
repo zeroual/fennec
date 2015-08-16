@@ -1,0 +1,31 @@
+{
+  "name": "fennec",
+  "version": "0.0.1",
+  "homepage": "https://github.com/zeroual/fennec",
+  "authors": [
+    "abid1919@hotmail.fr <abid1991@hotmail.fr>"
+  ],
+  "dependencies": {
+    "angular": "1.4.4",
+    "bootstrap": "^3.3.1",
+    "angular-resource": "1.4.4"
+  },
+  "keywords": [
+    "spring",
+    "boot",
+    "angular",
+    "js",
+    "fennec"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular-mocks": "~1.4.4"
+  }
+}

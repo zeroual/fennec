@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <title>Mean sample</title>
+    <meta charset="UTF-8">
+    <meta name=description content="">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+</head>
+<body ng-app="app">
+<div class="container" ng-controller="PostController as ctrl">
+    <h1>Recent Posts</h1>
+    <hr/>
+    <div class="row">
+        <form role="form">
+            <div class="col-md-7">
+                <input ng-model="ctrl.postBody" class="form-control"/>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-primary" ng-click="ctrl.addPost()">Add Post</button>
+            </div>
+        </form>
+    </div>
+
+    <hr/>
+    <div class="row">
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="post in ctrl.posts">
+                <strong>@{{post.username}}</strong>
+                <span>{{post.body}}</span>
+            </li>
+        </ul>
+    </div>
+</div>
+<script src="/assets/jquery/dist/jquery.min.js"></script>
+<script src="/assets/angular/angular.min.js"></script>
+<script src="/assets/angular-resource/angular-resource.js"></script>
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="/app/app.js"></script>
+<script src="app/services/postService.js"></script>
+<script src="app/controllers/postController.js"></script>
+</body>
+</html>
