@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
     <title>Starter Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"/>
 
     <!-- Custom styles for this template -->
     <style>
@@ -85,6 +85,20 @@
                         </fieldset>
                     </form>
                 </div>
+                <h3>Connect to Facebook</h3>
+
+                <form action="/connect/facebook" method="POST">
+                    <input type="hidden" name="scope" value="public_profile" />
+                    <input type="hidden" name="scope" value="user_friends" />
+                    <input type="hidden" name="scope" value="email" />
+                    <div class="formInfo">
+                        <p>You aren't connected to Facebook yet. Click the button to connect this application with your Facebook account.</p>
+                    </div>
+                    <p><button type="submit">Connect to Facebook</button></p>
+                </form>
+                <form action="/signin/facebook" method="POST">
+                    <button class="btn btn-lg btn-primary" type="submit">toto</button>
+                </form>
             </div>
         </div>
 

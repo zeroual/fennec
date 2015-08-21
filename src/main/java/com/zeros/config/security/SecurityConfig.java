@@ -1,32 +1,40 @@
 package com.zeros.config.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    public final static String HOME_PAGE="/fennec.html";
-    public final static String LOGIN_PAGE="/index.html";
+    public final static String HOME_PAGE="/fennec";
+    public final static String INDEX_PAGE ="/";
     public final static String LOGIN_URL="/login";
+    public final static String SOCIAL_LOGIN_URL="/connect/**";
+    public final static String SOCIAL_SIGNING_URL ="/signin/**";
+    @Autowired
+    private DataSource dataSource;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                    .loginPage(LOGIN_PAGE)
+                    .loginPage(INDEX_PAGE)
                     .loginProcessingUrl(LOGIN_URL)
                     .defaultSuccessUrl(HOME_PAGE)
                 .and()
                     .logout()
-                    .logoutSuccessUrl(LOGIN_PAGE)
+                    .logoutSuccessUrl(INDEX_PAGE)
                 .and()
                 .authorizeRequests()
-                    .antMatchers(LOGIN_PAGE).permitAll()
-                    .antMatchers(HttpMethod.POST, LOGIN_URL).permitAll()
+                    .antMatchers(INDEX_PAGE).permitAll()
+                    .antMatchers(SOCIAL_SIGNING_URL).permitAll()
+                    .antMatchers(SOCIAL_LOGIN_URL).permitAll()
                     .anyRequest().authenticated()
                 .and()
                 .csrf().disable();
@@ -34,10 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("zeros").password("zeros#password").roles("USER")
-                .and()
-                .withUser("jabri").password("jabri#password").roles("USER");
+        auth.jdbcAuthentication().dataSource(dataSource);
     }
 
 

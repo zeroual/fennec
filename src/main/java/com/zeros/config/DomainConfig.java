@@ -1,5 +1,6 @@
 package com.zeros.config;
 
+import org.h2.tools.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.sql.SQLException;
 
 
 @Configuration
@@ -23,15 +25,26 @@ import javax.sql.DataSource;
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableTransactionManagement
 public class DomainConfig {
+    public static final String PORT = "8082";
+
+//    @Bean
+//    public DataSource dataSource() {
+//        return new EmbeddedDatabaseBuilder()
+//                .setType(EmbeddedDatabaseType.H2)
+//                .addScript("schema.sql")
+//                .build();
+//    }
 
     @Bean
-    public DataSource dataSource() {
-        return new EmbeddedDatabaseBuilder()
-                .setType(EmbeddedDatabaseType.H2)
-                .addScript("schema.sql")
-                .build();
+    public Server serverH2() throws SQLException {
+        System.out.println("\n>>>>> serverH2 : Start ..............\n" +
+                "   URL      : http://localhost:" + PORT + "/ \n" +
+                "   URL JDBC : jdbc:h2:mem:testdb  \n" +
+                "   USER     : sa \n" +
+                "   PASSWORD : \n" +
+                " \n");
+        return Server.createWebServer("-webAllowOthers", "-webPort", PORT).start();
     }
-
     @Bean
     public JpaTransactionManager transactionManager() {
         return new JpaTransactionManager(); // does this need an emf???
@@ -42,7 +55,7 @@ public class DomainConfig {
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
         adapter.setDatabase(Database.H2);
         adapter.setShowSql(false);
-        adapter.setGenerateDdl(true);
+        adapter.setGenerateDdl(false);
         return adapter;
     }
 

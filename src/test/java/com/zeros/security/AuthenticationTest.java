@@ -58,7 +58,7 @@ public class AuthenticationTest {
     @Test
     public void shouldRedirectToLoginPage() throws Exception {
         mockMvc.perform(get("/admin"))
-                .andExpect(redirectedUrlPattern("**"+SecurityConfig.LOGIN_PAGE));
+                .andExpect(redirectedUrlPattern("**"+SecurityConfig.INDEX_PAGE));
     }
 
     @Test
@@ -72,7 +72,7 @@ public class AuthenticationTest {
     public void shouldNotAuthenticateAndRedirectToLoginPage() throws Exception {
         mockMvc.perform(formLogin().user("zeros").password("wrong password"))
                 .andExpect(unauthenticated())
-                .andExpect(redirectedUrlPattern(SecurityConfig.LOGIN_PAGE + "?error"))
+                .andExpect(redirectedUrlPattern(SecurityConfig.INDEX_PAGE + "?error"))
                 .andDo(print());
     }
     @Test
@@ -83,7 +83,11 @@ public class AuthenticationTest {
     public void shouldRedirectToHomePageAfterLogout() throws Exception {
         mockMvc.perform(logout())
                 .andExpect(unauthenticated())
-                .andExpect(redirectedUrl(SecurityConfig.HOME_PAGE));
+                .andExpect(redirectedUrl(SecurityConfig.INDEX_PAGE));
     }
+//    @Test
+//    public void shouldAllowToConnectWithFacebook() throws Exception {
+//        mockMvc.perform(get(SecurityConfig.FACEBOOK_LOGIN_URL)).andExpect(status().isOk());
+//    }
 
 }
