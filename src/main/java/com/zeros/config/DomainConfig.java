@@ -27,13 +27,13 @@ import java.sql.SQLException;
 public class DomainConfig {
     public static final String PORT = "8082";
 
-//    @Bean
-//    public DataSource dataSource() {
-//        return new EmbeddedDatabaseBuilder()
-//                .setType(EmbeddedDatabaseType.H2)
-//                .addScript("schema.sql")
-//                .build();
-//    }
+    @Bean
+    public DataSource dataSource() {
+        return new EmbeddedDatabaseBuilder()
+                .setType(EmbeddedDatabaseType.H2)
+                .addScript("schema.sql")
+                .build();
+    }
 
     @Bean
     public Server serverH2() throws SQLException {

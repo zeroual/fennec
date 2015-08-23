@@ -1,8 +1,8 @@
 package com.zeros.security;
 
 import com.zeros.config.DomainDevConfig;
-import com.zeros.config.security.SecurityConfig;
 import com.zeros.config.WebConfig;
+import com.zeros.config.security.SecurityConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,20 +21,15 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.Filter;
 
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.logout;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
-import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {WebConfig.class, SecurityConfig.class, DomainDevConfig.class})
 @WebAppConfiguration()
-@TestExecutionListeners(listeners={ServletTestExecutionListener.class,
+@TestExecutionListeners(listeners = {ServletTestExecutionListener.class,
         DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class})
@@ -57,37 +52,25 @@ public class AuthenticationTest {
 
     @Test
     public void shouldRedirectToLoginPage() throws Exception {
-        mockMvc.perform(get("/admin"))
-                .andExpect(redirectedUrlPattern("**"+SecurityConfig.INDEX_PAGE));
+        mockMvc.perform(get(SecurityConfig.HOME_PAGE))
+                .andExpect(redirectedUrlPattern("**" + SecurityConfig.INDEX_PAGE));
     }
 
-    @Test
-    public void shouldAuthenticateAndRedirectToHomePage() throws Exception {
-        mockMvc.perform(formLogin().user("zeros").password("zeros#password"))
-                .andExpect(authenticated())
-                .andExpect(redirectedUrl(SecurityConfig.HOME_PAGE));
-    }
-
-    @Test
-    public void shouldNotAuthenticateAndRedirectToLoginPage() throws Exception {
-        mockMvc.perform(formLogin().user("zeros").password("wrong password"))
-                .andExpect(unauthenticated())
-                .andExpect(redirectedUrlPattern(SecurityConfig.INDEX_PAGE + "?error"))
-                .andDo(print());
-    }
     @Test
     public void shouldLogout() throws Exception {
         mockMvc.perform(logout()).andExpect(unauthenticated());
     }
+
     @Test
     public void shouldRedirectToHomePageAfterLogout() throws Exception {
         mockMvc.perform(logout())
                 .andExpect(unauthenticated())
                 .andExpect(redirectedUrl(SecurityConfig.INDEX_PAGE));
     }
-//    @Test
-//    public void shouldAllowToConnectWithFacebook() throws Exception {
-//        mockMvc.perform(get(SecurityConfig.FACEBOOK_LOGIN_URL)).andExpect(status().isOk());
-//    }
+
+    @Test
+    public void shouldAllowToConnectWithFacebook() throws Exception {
+        mockMvc.perform(get(SecurityConfig.SOCIAL_LOGIN_URL)).andExpect(status().isOk());
+    }
 
 }

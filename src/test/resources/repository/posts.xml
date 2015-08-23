@@ -1,5 +1,5 @@
 <dataset>
-    <post ID="1"
+    <posts ID="1"
           USERNAME="toto"
           BODY="test body"/>
 </dataset>

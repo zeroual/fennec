@@ -1,23 +1,73 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:social="http://spring.io/springsocial"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorator="layout">
-	<head>
-		<title>Spring Social Showcase</title>
-	</head>
-	<body>
-		<div id="content" layout:fragment="content">
-			<h3>Connect to Facebook</h3>
-			
-			<form th:action="@{/connect/facebook}" method="POST">
-				<input type="hidden" name="scope" value="public_profile,user_friends,email" />
-				<div class="formInfo">
-					<p>You aren't connected to Facebook yet. Click the button to connect Spring Social Showcase with your Facebook account.</p>
-				</div>
-				<p><button type="submit"><img th:src="@{/resources/social/facebook/connect_light_medium_short.gif}"/></button></p>
-				<label for="postToWall"><input id="postToWall" type="checkbox" name="postToWall" /> Tell your friends about Spring Social Showcase on your Facebook wall</label>
-			</form>
-		</div>		
-	</body>
+<html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+<head>
+    <title>Spring Social Showcase</title>
+    <style>
+        body {
+            width:100px;
+            height:100px;
+            background: -webkit-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* Chrome 10+, Saf5.1+ */
+            background:    -moz-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* FF3.6+ */
+            background:     -ms-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* IE10 */
+            background:      -o-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* Opera 11.10+ */
+            background:         linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* W3C */
+            font-family: 'Raleway', sans-serif;
+        }
+
+        p {
+            color:#CCC;
+        }
+
+        .spacing {
+            padding-top:7px;
+            padding-bottom:7px;
+        }
+        .middlePage {
+            width: 680px;
+            height: 500px;
+            position: absolute;
+            top:0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+        .logo {
+            color:#CCC;
+        }
+    </style>
+</head>
+<body>
+<div class="middlePage">
+    <div class="page-header">
+        <h1 class="logo">Fennec
+            <small>Welcome!</small>
+        </h1>
+    </div>
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">Please Sign In</h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="row">
+
+                <div class="col-md-5">
+                    <form action="/connect/facebook" method="POST">
+                        <input type="hidden" name="scope" value="public_profile,user_friends,email" />
+                        <p><button type="submit"><img src="http://techulus.com/buttons/fb.png"/></button></p>
+                    </form>
+                    <a href="#"><img src="http://techulus.com/buttons/tw.png"/></a><br/>
+                    <a href="#"><img src="http://techulus.com/buttons/gplus.png"/></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
 </html>

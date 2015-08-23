@@ -62,43 +62,46 @@
                     <h2 class="panel-title">Merci de vous connecter</h2>
                 </div>
                 <div class="panel-body">
-                    <form accept-charset="UTF-8" role="form" method="POST" action="/login">
-                        <fieldset>
-                            <div class="form-group">
-                                <input class="form-control"
-                                       placeholder="Login"
-                                       name="username"
-                                       type="text"/>
-                            </div>
+                    <!--<form accept-charset="UTF-8" role="form" method="POST" action="/login">-->
+                        <!--<fieldset>-->
+                            <!--<div class="form-group">-->
+                                <!--<input class="form-control"-->
+                                       <!--placeholder="Login"-->
+                                       <!--name="username"-->
+                                       <!--type="text"/>-->
+                            <!--</div>-->
 
-                            <div class="form-group">
-                                <input class="form-control"
-                                       placeholder="Mot de passe"
-                                       name="password"
-                                       type="password"
-                                        />
+                            <!--<div class="form-group">-->
+                                <!--<input class="form-control"-->
+                                       <!--placeholder="Mot de passe"-->
+                                       <!--name="password"-->
+                                       <!--type="password"-->
+                                        <!--/>-->
 
-                            </div>
+                            <!--</div>-->
 
-                            <input id="submit" class="btn btn-lg btn-success btn-block"
-                                   type="submit" value="Se connecter"/>
-                        </fieldset>
-                    </form>
+                            <!--<input id="submit" class="btn btn-lg btn-success btn-block"-->
+                                   <!--type="submit" value="Se connecter"/>-->
+                        <!--</fieldset>-->
+                    <!--</form>-->
+                  <form action="/signin/facebook" method="POST">
+                    <button class="btn btn-lg btn-primary" type="submit">Connexion</button>
+                  </form>
                 </div>
-                <h3>Connect to Facebook</h3>
+                <!--<h3>Connect to Facebook</h3>-->
 
-                <form action="/connect/facebook" method="POST">
-                    <input type="hidden" name="scope" value="public_profile" />
-                    <input type="hidden" name="scope" value="user_friends" />
-                    <input type="hidden" name="scope" value="email" />
-                    <div class="formInfo">
-                        <p>You aren't connected to Facebook yet. Click the button to connect this application with your Facebook account.</p>
-                    </div>
-                    <p><button type="submit">Connect to Facebook</button></p>
-                </form>
-                <form action="/signin/facebook" method="POST">
-                    <button class="btn btn-lg btn-primary" type="submit">toto</button>
-                </form>
+                <!--<form action="/connect/facebook" method="POST">-->
+                    <!--<input type="hidden" name="scope" value="public_profile" />-->
+                    <!--<input type="hidden" name="scope" value="user_friends" />-->
+                    <!--<input type="hidden" name="scope" value="email" />-->
+                    <!--<div class="formInfo">-->
+                        <!--<p>You aren't connected to Facebook yet. Click the button to connect this application with your Facebook account.</p>-->
+                    <!--</div>-->
+                    <!--<p><button type="submit">Connect to Facebook</button></p>-->
+                <!--</form>-->
+                <!--<form action="/signin/facebook" method="POST">-->
+                    <!--<button class="btn btn-lg btn-primary" type="submit">toto</button>-->
+                <!--</form>-->
             </div>
         </div>
 

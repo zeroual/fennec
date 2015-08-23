@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
+@Import(value = DomainConfig.class)
 public class DomainDevConfig {
 
     @Bean
