@@ -4,15 +4,12 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "POSTS")
+@Table(name = "POST")
 public class Post {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "USERNAME")
-    private String username;
 
     @Column(name = "BODY")
     private String body;
@@ -21,11 +18,14 @@ public class Post {
     @Temporal(TemporalType.DATE)
     private Date date;
 
+    @ManyToOne
+    @JoinColumn(name = "POSTER_ID")
+    private Member poster;
+
     private Post(){
 
     }
-    public Post(String username, String body) {
-        this.username = username;
+    public Post(String  body) {
         this.body = body;
         this.date = new Date();
     }
@@ -34,9 +34,7 @@ public class Post {
         return id;
     }
 
-    public String getUsername() {
-        return username;
-    }
+
 
     public String getBody() {
         return body;
@@ -44,10 +42,6 @@ public class Post {
 
     public Date getDate() {
         return date;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public void setBody(String body) {
@@ -62,9 +56,16 @@ public class Post {
     public String toString() {
         return "Post{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
                 ", body='" + body + '\'' +
                 ", date=" + date +
                 '}';
+    }
+
+    public Member getPoster() {
+        return poster;
+    }
+
+    public void setPoster(Member poster) {
+        this.poster = poster;
     }
 }

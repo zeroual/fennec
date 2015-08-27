@@ -1,13 +1,18 @@
-DROP TABLE IF EXISTS POSTS;
+DROP TABLE IF EXISTS POST;
+DROP TABLE IF EXISTS MEMBER;
 DROP TABLE IF EXISTS UserConnection;
-DROP TABLE IF EXISTS UserProfile;
 
-CREATE TABLE POSTS (
+CREATE TABLE POST (
   ID       BIGINT PRIMARY KEY AUTO_INCREMENT,
-  USERNAME VARCHAR(50) NOT NULL,
+  POSTER_ID VARCHAR(50) NOT NULL,
   BODY  VARCHAR(50) NOT NULL,
   DATE  DATE
 );
+CREATE TABLE  MEMBER(
+  ID varchar(255) PRIMARY KEY,
+  DISPLAY_NAME varchar(255)
+);
+
 create table UserConnection (
   userId varchar(255) not null,
   providerId varchar(255) not null,
@@ -23,12 +28,3 @@ create table UserConnection (
   primary key (userId, providerId, providerUserId));
 create unique index UserConnectionRank on UserConnection(userId, providerId, rank);
 
-create table UserProfile (
-  userId varchar(255) not null,
-  email varchar(255),
-  firstName varchar(255),
-  lastName varchar(255),
-  name  varchar(255),
-  username varchar(255),
-  primary key (userId));
-create unique index UserProfilePK on UserProfile(userId);

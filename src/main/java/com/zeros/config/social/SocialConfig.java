@@ -1,5 +1,7 @@
 package com.zeros.config.social;
 
+import com.zeros.domain.entity.Member;
+import com.zeros.domain.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -12,10 +14,7 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.social.config.annotation.ConnectionFactoryConfigurer;
 import org.springframework.social.config.annotation.EnableSocial;
 import org.springframework.social.config.annotation.SocialConfigurerAdapter;
-import org.springframework.social.connect.Connection;
-import org.springframework.social.connect.ConnectionFactoryLocator;
-import org.springframework.social.connect.ConnectionRepository;
-import org.springframework.social.connect.UsersConnectionRepository;
+import org.springframework.social.connect.*;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 import org.springframework.social.connect.web.ConnectController;
 import org.springframework.social.connect.web.ProviderSignInController;
@@ -38,6 +37,9 @@ public class SocialConfig extends SocialConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    private MemberRepository memberRepository;
+
     @Override
     public void addConnectionFactories(ConnectionFactoryConfigurer cfConfig, Environment env) {
         cfConfig.addConnectionFactory(new FacebookConnectionFactory(appId, appSecret));
@@ -47,7 +49,7 @@ public class SocialConfig extends SocialConfigurerAdapter {
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
         JdbcUsersConnectionRepository jdbcUsersConnectionRepository = new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
-        jdbcUsersConnectionRepository.setConnectionSignUp(connection -> connection.getKey().getProviderUserId());
+        jdbcUsersConnectionRepository.setConnectionSignUp(new ImplicitConnectionSignup(memberRepository));
         return jdbcUsersConnectionRepository;
     }
 
@@ -75,6 +77,21 @@ public class SocialConfig extends SocialConfigurerAdapter {
     @Bean
     public SignInAdapter signInAdapter() {
         return new SimpleSignInAdapter(new HttpSessionRequestCache());
+    }
+    public  static class ImplicitConnectionSignup implements ConnectionSignUp {
+
+        private MemberRepository memberRepository;
+
+        public ImplicitConnectionSignup(MemberRepository memberRepository) {
+            this.memberRepository = memberRepository;
+        }
+
+        @Override
+        public String execute(Connection<?> connection) {
+            Member member=new Member(connection.getKey().getProviderUserId(),connection.getDisplayName());
+            memberRepository.save(member);
+            return connection.getKey().getProviderUserId();
+        }
     }
 
 }

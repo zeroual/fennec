@@ -1,5 +1,8 @@
 <dataset>
-    <posts ID="1"
-          USERNAME="toto"
+    <member ID="12T"
+            DISPLAY_NAME="toto"/>
+
+    <post ID="1"
+          POSTER_ID="12T"
           BODY="test body"/>
 </dataset>

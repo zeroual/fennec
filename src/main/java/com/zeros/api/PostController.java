@@ -1,5 +1,6 @@
 package com.zeros.api;
 
+import com.zeros.domain.entity.Member;
 import com.zeros.domain.entity.Post;
 import com.zeros.domain.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,8 @@ public class PostController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public @ResponseBody Post savePost(@RequestBody Post post,@AuthenticationPrincipal Principal principal) {
-        post.setUsername(principal.getName());
+        Member poster = new Member(principal.getName());
+        post.setPoster(poster);
         return postRepository.save(post);
     }
 

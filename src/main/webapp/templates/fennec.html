@@ -8,32 +8,54 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet" media="screen"/>
 </head>
 <body ng-app="app">
-<div class="container" ng-controller="PostController as ctrl">
-    <h1>Recent Posts</h1>
-    <hr/>
-    <div class="row">
-        <form role="form">
-            <div class="col-md-7">
-                <input ng-model="ctrl.postBody" class="form-control"/>
-            </div>
-            <div class="col-md-3">
-                <button class="btn btn-primary" ng-click="ctrl.addPost()">Add Post</button>
-            </div>
-        </form>
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation" class="active"><a href="#">Home</a></li>
+                <li role="presentation"><a href="#">About</a></li>
+                <li role="presentation"><a href="/logout">Se déconnecter</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">Fennec</h3>
     </div>
 
-    <hr/>
-    <div class="row">
-        <ul class="list-group">
-            <li class="list-group-item" ng-repeat="post in ctrl.posts">
-                <strong>@{{post.username}}</strong>
-                <span>{{post.body}}</span>
-            </li>
-        </ul>
+    <div class="jumbotron">
+        <h1>Recent Posts</h1>
     </div>
-</div>
+
+    <div class="row marketing" ng-controller="PostController as ctrl">
+            <div class="row">
+                <form role="form">
+                    <div class="col-md-7">
+                        <input ng-model="ctrl.postBody" class="form-control"/>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary" ng-click="ctrl.addPost()">Add Post</button>
+                    </div>
+                </form>
+            </div>
+
+            <hr/>
+            <div class="row">
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="post in ctrl.posts">
+                        <strong>@{{post.poster.displayName}}</strong>
+                        <span>{{post.body}}</span>
+                    </li>
+                </ul>
+            </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; ZEROS 2015</p>
+    </footer>
+
+</div> <!-- /container -->
+
 <script src="/assets/jquery/dist/jquery.min.js"></script>
 <script src="/assets/angular/angular.min.js"></script>
 <script src="/assets/angular-resource/angular-resource.js"></script>
