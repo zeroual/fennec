@@ -4,8 +4,11 @@
 module.exports = function(config) {
   config.set({
 
-    // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '../',
+    // base path, that will be used to resolve files and exclude
+    basePath: '../../',
+
+    // testing framework to use (jasmine/mocha/qunit/...)
+    frameworks: ['jasmine'],
 
 
     // frameworks to use
@@ -15,13 +18,16 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'assets/jquery/dist/jquery.js',
-      'assets/angular/angular.js',
-      'assets/angular-mocks/angular-mocks.js',
-      'assets/angular-resource/angular-resource.js',
-      'app/app.js',
-      'app/**/*.js',
-      'test/spec/**/*.js'
+      'main/webapp/assets/jquery/dist/jquery.js',
+      'main/webapp/assets/angular/angular.js',
+      'main/webapp/assets/angular-mocks/angular-mocks.js',
+      'main/webapp/assets/angular-resource/angular-resource.js',
+      'main/webapp/app/app.js',
+
+      'main/webapp/app/app.js',
+      'main/webapp/app/**/*.js',
+      'main/webapp/app/**/*.js',
+      'test/js/**/!(karma.conf).js'
     ],
     // list of files to exclude
     exclude: [

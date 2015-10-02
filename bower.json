@@ -5,6 +5,8 @@
   "authors": [
     "abid1919@hotmail.fr <abid1991@hotmail.fr>"
   ],
+  "appPath": "src/main/webapp",
+  "testPath": "src/test/js/spec",
   "dependencies": {
     "angular": "1.4.4",
     "bootstrap": "^3.3.1",
